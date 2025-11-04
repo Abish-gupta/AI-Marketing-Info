@@ -25,7 +25,7 @@ Frontend: [Sample Form](https://abish-gupta.github.io/AI-Marketing-Info/)
 
 See the workflow architecture, node logic, and sequence below:
 
-[Workflow Screenshot](.n8n/Image_1.png)
+[Workflow Screenshot](AI-Marketing-Info/n8n/Image_1.png)
 
 > *Note: Only a visual screenshot of the n8n workflow is provided for review. Full workflow export (JSON) is private and not shared in this repository.*
 
