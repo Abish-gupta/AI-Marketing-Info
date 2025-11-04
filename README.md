@@ -13,7 +13,6 @@ Automated business research with n8n and AI:
 [![Watch the video](https://img.youtube.com/vi/bQzhbscrcoA/0.jpg)](https://www.youtube.com/embed/bQzhbscrcoA?si=Ry7dhefGJVYSgBfc)
 
 Frontend: [Sample Form](https://sampleform-url.com)  
-Email Example: [Sample Email](https://sample-result-email.com)
 
 ## Features
 
@@ -26,7 +25,7 @@ Email Example: [Sample Email](https://sample-result-email.com)
 
 See the workflow architecture, node logic, and sequence below:
 
-![Workflow Screenshot](./docs/workflow-screenshot.png)
+![Workflow Screenshot](.n8n/Image_1.png)
 
 > *Note: Only a visual screenshot of the n8n workflow is provided for review. Full workflow export (JSON) is private and not shared in this repository.*
 
