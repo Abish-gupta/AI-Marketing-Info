@@ -12,7 +12,7 @@ Automated business research with n8n and AI:
 
 [![Watch the video](https://img.youtube.com/vi/bQzhbscrcoA/0.jpg)](https://www.youtube.com/embed/bQzhbscrcoA?si=Ry7dhefGJVYSgBfc)
 
-Frontend: [Sample Form](https://sampleform-url.com)  
+Frontend: [Sample Form](https://abish-gupta.github.io/AI-Marketing-Info/)  
 
 ## Features
 
