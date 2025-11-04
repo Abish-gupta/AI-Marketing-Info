@@ -10,6 +10,8 @@ Automated business research with n8n and AI:
 
 ## Demo Links
 
+[![Watch the video](https://img.youtube.com/vi/TaKmTrsx2Lo/0.jpg)](https://www.youtube.com/embed/TaKmTrsx2Lo?si=Ry7dhefGJVYSgBfc)
+
 Frontend: [Sample Form](https://sampleform-url.com)  
 Email Example: [Sample Email](https://sample-result-email.com)
 
