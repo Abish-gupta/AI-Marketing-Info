@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Marketing Research Request</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:700,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      font-family: 'Roboto', Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(60, 80, 90, 0.14);
+      max-width: 450px;
+      width: 95%;
+      padding: 2rem 2.5rem 2rem 2.5rem;
+      text-align: left;
+      position: relative;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .logo-icon {
+      font-size: 2.4rem;
+      color: #3172b7;
+      margin-right: 0.7rem;
+    }
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #25456B;
+      margin-bottom: 0.2rem;
+      text-align: center;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 1.04rem;
+      color: #497783;
+      margin-bottom: 1.4rem;
+    }
+    .field-label {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.05rem;
+      color: #225ea8;
+      margin-bottom: 0.5rem;
+    }
+    .field-label .fa {
+      margin-right: 0.5em;
+      font-size: 1.22rem;
+      color: #3172b7;
+      opacity: 0.95;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.7rem 0.8rem;
+      border-radius: 0.5rem;
+      border: 1.5px solid #c0d3e6;
+      margin-bottom: 1.1rem;
+      font-size: 1rem;
+      background: #f8fbfc;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    input:focus, textarea:focus {
+      border-color: #3172b7;
+      outline: none;
+    }
+    .submit-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; padding: 1rem;
+      margin-top: 0.8rem;
+      font-size: 1.07rem;
+      background: #3172b7;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 0.55rem;
+      cursor: pointer;
+      transition: background 0.17s;
+    }
+    .submit-btn .fa-paper-plane {
+      margin-right: 0.8em;
+      font-size: 1.11rem;
+    }
+    .submit-btn:hover {
+      background: #225ea8;
+    }
+    @media (max-width: 540px) {
+      .card { padding: 1.3rem 0.7rem 1.7rem 0.7rem; }
+      .title { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <i class="fa-solid fa-chart-line logo-icon"></i>
+      <span class="title">Marketing Research Request</span>
+    </div>
+    <div class="subtitle">
+      Fill out the company details below to get automated business insights delivered.
+    </div>
+    <form id="researchForm">
+      <div class="field-label">
+        <i class="fa-solid fa-building"></i>
+        Company Name *
+      </div>
+      <input type="text" id="companyName" name="companyName" placeholder= "aGi" required maxlength="80">
+
+      <div class="field-label">
+        <i class="fa-solid fa-globe"></i>
+        Company Website (optional)
+      </div>
+      <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://abishgupta.com">
+
+      <div class="field-label">
+        <i class="fa-solid fa-envelope"></i>
+        Your Email *
+      </div>
+      <input type="email" id="yourEmail" name="yourEmail" placeholder="abish.guptaa@example.com" required>
+
+      <button type="submit" class="submit-btn">
+        <i class="fa-solid fa-paper-plane"></i>
+        Submit Request
+      </button>
+    </form>
+    <!-- Success/Error logic as before, add status divs if needed -->
+  </div>
+  <script>
+    document.getElementById('researchForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      // Add your fetch to n8n webhook here (as in previous examples)
+    });
+  </script>
+</body>
+</html>
