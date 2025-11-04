@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Marketing Research Request</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Google Fonts + Font Awesome -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:700,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -23,9 +22,9 @@
       box-shadow: 0 8px 32px rgba(60, 80, 90, 0.14);
       max-width: 450px;
       width: 95%;
-      padding: 2rem 2.5rem 2rem 2.5rem;
+      padding: 2rem 2.5rem;
       text-align: left;
-      position: relative;
+      min-width: 310px;
     }
     .logo {
       display: flex;
@@ -65,7 +64,7 @@
       color: #3172b7;
       opacity: 0.95;
     }
-    input, textarea {
+    input {
       width: 100%;
       padding: 0.7rem 0.8rem;
       border-radius: 0.5rem;
@@ -76,15 +75,18 @@
       transition: border-color 0.2s;
       box-sizing: border-box;
     }
-    input:focus, textarea:focus {
+    input:focus {
       border-color: #3172b7;
       outline: none;
     }
     .submit-btn {
-      display: flex; align-items: center; justify-content: center;
-      width: 100%; padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 1rem;
       margin-top: 0.8rem;
-      font-size: 1.07rem;
+      font-size: 1.09rem;
       background: #3172b7;
       color: white;
       font-weight: 700;
@@ -92,60 +94,121 @@
       border-radius: 0.55rem;
       cursor: pointer;
       transition: background 0.17s;
-    }
-    .submit-btn .fa-paper-plane {
-      margin-right: 0.8em;
-      font-size: 1.11rem;
+      letter-spacing: 0.03em;
     }
     .submit-btn:hover {
       background: #225ea8;
     }
-    @media (max-width: 540px) {
-      .card { padding: 1.3rem 0.7rem 1.7rem 0.7rem; }
-      .title { font-size: 1.35rem; }
+    .toast {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -65px;
+      background: #3172b7;
+      color: #fff;
+      padding: 1em;
+      border-radius: 0.5em;
+      display: none;
+      z-index: 22;
+    }
+    .toast.show { display: block; }
+
+    /* Loading overlay */
+    #loading {
+      display:none;
+      position:fixed;
+      top:0; left:0; width:100%; height:100%;
+      background:rgba(255,255,255,0.8);
+      backdrop-filter: blur(3px);
+      z-index:9999;
+      font-size:1.4rem;
+      font-weight:600;
+      color:#225ea8;
+      text-align:center;
+      padding-top:20%;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo">
-      <i class="fa-solid fa-chart-line logo-icon"></i>
-      <span class="title">Marketing Research Request</span>
-    </div>
-    <div class="subtitle">
-      Fill out the company details below to get automated business insights delivered.
-    </div>
-    <form id="researchForm">
-      <div class="field-label">
-        <i class="fa-solid fa-building"></i>
-        Company Name *
-      </div>
-      <input type="text" id="companyName" name="companyName" placeholder= "aGi" required maxlength="80">
 
-      <div class="field-label">
-        <i class="fa-solid fa-globe"></i>
-        Company Website (optional)
-      </div>
-      <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://abishgupta.com">
-
-      <div class="field-label">
-        <i class="fa-solid fa-envelope"></i>
-        Your Email *
-      </div>
-      <input type="email" id="yourEmail" name="yourEmail" placeholder="abish.guptaa@example.com" required>
-
-      <button type="submit" class="submit-btn">
-        <i class="fa-solid fa-paper-plane"></i>
-        Submit Request
-      </button>
-    </form>
-    <!-- Success/Error logic as before, add status divs if needed -->
+<div class="card">
+  <div class="logo">
+    <i class="fa-solid fa-chart-line logo-icon"></i>
+    <span class="title">Marketing Research Request</span>
   </div>
-  <script>
-    document.getElementById('researchForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      // Add your fetch to n8n webhook here (as in previous examples)
+  <div class="subtitle">Fill out company details to get automated insights.</div>
+
+  <form id="researchForm">
+    <div class="field-label"><i class="fa-solid fa-building"></i>Company Name *</div>
+    <input type="text" id="companyName" name="companyName" placeholder="aGi" required maxlength="80">
+
+    <div class="field-label"><i class="fa-solid fa-globe"></i>Company Website (optional)</div>
+    <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://abishgupta.com">
+
+    <div class="field-label"><i class="fa-solid fa-envelope"></i>Your Email *</div>
+    <input type="email" id="yourEmail" name="yourEmail" placeholder="abish.guptaa@example.com" required>
+
+    <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i>Submit Request</button>
+  </form>
+
+  <div class="toast" id="successMsg">✅ Email sent successfully!</div>
+  <div class="toast" id="errorMsg" style="background:#ff5e57;">❌ Something went wrong</div>
+</div>
+
+<div id="loading">⏳ Processing your request...<br> Please wait...</div>
+
+<script>
+window.onload = function() {
+  document.getElementById('companyName').value = localStorage.getItem('companyName') || '';
+  document.getElementById('websiteUrl').value = localStorage.getItem('websiteUrl') || '';
+  document.getElementById('yourEmail').value = localStorage.getItem('yourEmail') || '';
+};
+
+const form = document.getElementById('researchForm');
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  document.getElementById('successMsg').classList.remove('show');
+  document.getElementById('errorMsg').classList.remove('show');
+
+  const submitBtn = document.querySelector('.submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Processing...";
+  document.getElementById('loading').style.display = "block";
+
+  let websiteVal = document.getElementById('websiteUrl').value.trim();
+  if (websiteVal && !/^https?:\/\//i.test(websiteVal)) {
+    websiteVal = 'https://' + websiteVal;
+  }
+
+  const data = {
+    companyName: document.getElementById('companyName').value,
+    websiteUrl: websiteVal,
+    yourEmail: document.getElementById('yourEmail').value
+  };
+
+  try {
+    const response = await fetch('https://abishgupta2.app.n8n.cloud/webhook-test/11983700-73fd-445c-a61d-8a6de32851ee', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     });
-  </script>
+
+    if (response.ok) {
+      document.getElementById('successMsg').classList.add('show');
+      form.reset();
+    } else {
+      throw new Error();
+    }
+  } catch {
+    document.getElementById('errorMsg').classList.add('show');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit Request";
+    document.getElementById('loading').style.display = "none";
+  }
+});
+</script>
+
 </body>
 </html>
